@@ -101,7 +101,7 @@ namespace Sort
     }
     double ArrayToSort::Quintuplet()
     {
-        double numInIndex = QuintupletRec(_arrayToSort, _size, _index);
+        double numInIndex = QuintupletRec(_arrayToSort, _size, _index-1);
         return numInIndex;
     }
 
@@ -123,16 +123,14 @@ namespace Sort
 
         swap(array[index], array[_size-1]); // place the pivot in the last place, as partition expect to get it
 
-        int k = Partition(0, _size-1); 
+        int k = Partition(0, _size-1); //maybe need to adjust partition to get an array
         
         if (i < k)
             return QuintupletRec(array, k-1, i);
         if (i > k)
-        {
-            return QuintupletRec(array, n-k, i - k);
-        }
+            return QuintupletRec(array, n - k, i - k);
         else
-            return array[i];
+            return array[k];
     }
     int ArrayToSort::findIndexInArray(double arr[], double pivotNum, int size)
     {
