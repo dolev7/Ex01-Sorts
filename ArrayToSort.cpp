@@ -123,7 +123,7 @@ namespace Sort
 
         swap(array[index], array[_size-1]); // place the pivot in the last place, as partition expect to get it
 
-        int k = Partition(0, _size-1); //maybe need to adjust partition to get an array
+        int k = Partition(0, n-1); //maybe need to adjust partition to get an array
         
         if (i < k)
             return QuintupletRec(array, k-1, i);
