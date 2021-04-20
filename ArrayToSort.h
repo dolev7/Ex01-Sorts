@@ -16,6 +16,7 @@ namespace Sort
 		int _index;
 		double* _arrayToSort;
 	public:
+		//ctors and dtors
 		ArrayToSort(int n, int i, double* array);
 		ArrayToSort() { delete[]_arrayToSort;}
 
@@ -26,14 +27,12 @@ namespace Sort
 		void Quintuplet_SortPrintTimeMeasure(ofstream& myfile);
 
 		double Selection(int left, int right, int i);
-		int Partition(double* array, int left, int right);
 
 		double Quintuplet();
 		double QuintupletRec(double* array, int size, int i);
 
+		int Partition(double* array, int left, int right);
 		void bubbleSort(double arr[], int n);
 		int findIndexInArray(double arr[], double pivotNum, int size);
-
-		void PrintSortedArrayNumberInIndex();
 	};
 }

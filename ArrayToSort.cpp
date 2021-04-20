@@ -104,7 +104,6 @@ namespace Sort
         double numInIndex = QuintupletRec(_arrayToSort, _size, _index-1);
         return numInIndex;
     }
-
     double ArrayToSort::QuintupletRec(double* array, int n, int i)
     {
         if (n <= 5)
@@ -141,14 +140,12 @@ namespace Sort
             if (arr[i] == pivotNum)
                 return i;
     }
-
     void swap(double& num1, double& num2)
     {
         double temp = num1;
         num1 = num2;
         num2 = temp;
     }
-
     void ArrayToSort::bubbleSort(double arr[], int n)
     {
         int i, j;
@@ -158,6 +155,4 @@ namespace Sort
                 if (arr[j] > arr[j + 1])
                     swap(arr[j], arr[j + 1]);
     }
-    
-    
 }
