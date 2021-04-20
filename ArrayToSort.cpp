@@ -60,9 +60,9 @@ namespace Sort
     {
         auto start = chrono::high_resolution_clock::now();
         ios_base::sync_with_stdio(false);
-        this->InsertionSort();
+        double iNumber = this->Quintuplet();
         auto end = chrono::high_resolution_clock::now();
-        cout << "Quintuplet algorithm i'th element: " << std::fixed << std::setprecision(4) << _arrayToSort[_index - 1] << endl;
+        cout << "Quintuplet algorithm i'th element: " << std::fixed << std::setprecision(4) << iNumber << endl;
         double time_taken = static_cast<double>(chrono::duration_cast<chrono::nanoseconds>(end - start).count());
         time_taken *= 1e-9;
 
@@ -99,11 +99,61 @@ namespace Sort
         swap(_arrayToSort[i + 1], _arrayToSort[right]);
         return i + 1;
     }
+    double ArrayToSort::Quintuplet()
+    {
+        double numInIndex = QuintupletRec(_arrayToSort, _size, _index);
+        return numInIndex;
+    }
+
+    double ArrayToSort::QuintupletRec(double* array, int n, int i)
+    {
+        if (n <= 5)
+        {
+            bubbleSort(array, n);
+            return array[i];
+        }
+        double* b_array = new double[n/5];
+        for (int j = 0, k=0; k < n/5; j+=5, k++)
+        {
+            bubbleSort(array + j, 5);
+            b_array[k] = array[j+2];
+        }
+        double pivotNum = QuintupletRec(b_array, n/5, n / 10);
+        int index = findIndexInArray(array, pivotNum, _size);
+
+        swap(array[index], array[_size-1]); // place the pivot in the last place, as partition expect to get it
+
+        int k = Partition(0, _size-1); 
+        
+        if (i < k)
+            return QuintupletRec(array, k, i);
+        if (i > k)
+            return QuintupletRec(array, n - k, i - k);
+        else
+            return array[i];
+    }
+    int ArrayToSort::findIndexInArray(double arr[], double pivotNum, int size)
+    {
+        for (int i = 0; i < size - 1; i++)
+            if (arr[i] == pivotNum)
+                return i;
+    }
+
     void swap(double& num1, double& num2)
     {
         double temp = num1;
         num1 = num2;
         num2 = temp;
+    }
+
+    void ArrayToSort::bubbleSort(double arr[], int n)
+    {
+        int i, j;
+        for (i = 0; i < n - 1; i++)
+
+            for (j = 0; j < n - i - 1; j++)
+                if (arr[j] > arr[j + 1])
+                    swap(arr[j], arr[j + 1]);
     }
     
     

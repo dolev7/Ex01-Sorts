@@ -28,6 +28,12 @@ namespace Sort
 		double Selection(int left, int right, int i);
 		int Partition(int left, int right);
 
+		double Quintuplet();
+		double QuintupletRec(double* array, int size, int i);
+
+		void bubbleSort(double arr[], int n);
+		int findIndexInArray(double arr[], double pivotNum, int size);
+
 		void PrintSortedArrayNumberInIndex();
 	};
 }
