@@ -75,7 +75,7 @@ namespace Sort
         int pivot;
         int leftPart;
 
-        pivot = Partition(left, right);
+        pivot = Partition(_arrayToSort, left, right);
         leftPart = pivot - left + 1;
         if (i == leftPart)
             return _arrayToSort[pivot];
@@ -84,19 +84,19 @@ namespace Sort
         else
             return Selection(pivot + 1, right, i - leftPart);
     }
-    int ArrayToSort::Partition(int left, int right)
+    int ArrayToSort::Partition(double* array, int left, int right)
     {
-        double pivot = _arrayToSort[right];
+        double pivot = array[right];
         int i = (left - 1);
         for (int j = left; j < right; j++)
         {
-            if (_arrayToSort[j] <= pivot)
+            if (array[j] <= pivot)
             {
                 i++;
-                swap(_arrayToSort[i], _arrayToSort[j]);
+                swap(array[i], array[j]);
             }
         }
-        swap(_arrayToSort[i + 1], _arrayToSort[right]);
+        swap(array[i + 1], array[right]);
         return i + 1;
     }
     double ArrayToSort::Quintuplet()
@@ -112,23 +112,26 @@ namespace Sort
             bubbleSort(array, n);
             return array[i];
         }
-        double* b_array = new double[n/5];
-        for (int j = 0, k=0; k < n/5; j+=5, k++)
+         double* b_array = new double[n/5];
+        
+        int j, m;
+        for (j = 0, m=0; m < n/5; j+=5, m++)
         {
             bubbleSort(array + j, 5);
-            b_array[k] = array[j+2];
+            b_array[m] = array[j+2];
         }
-        double pivotNum = QuintupletRec(b_array, n/5, n / 10);
-        int index = findIndexInArray(array, pivotNum, _size);
 
-        swap(array[index], array[_size-1]); // place the pivot in the last place, as partition expect to get it
+       double pivotNum = QuintupletRec(b_array, n/5, n / 10);
+        int index = findIndexInArray(array, pivotNum, n);
 
-        int k = Partition(0, n-1); //maybe need to adjust partition to get an array
+        swap(array[index], array[n-1]); // place the pivot in the last place, as partition expect to get it
+
+        int k = Partition(array, 0, n-1); 
         
         if (i < k)
-            return QuintupletRec(array, k-1, i);
+            return QuintupletRec(array, k, i);
         if (i > k)
-            return QuintupletRec(array, n - k, i - k);
+            return QuintupletRec(array+k+1, n - k-1, i - k-1);
         else
             return array[k];
     }
