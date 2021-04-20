@@ -126,9 +126,11 @@ namespace Sort
         int k = Partition(0, _size-1); 
         
         if (i < k)
-            return QuintupletRec(array, k, i);
+            return QuintupletRec(array, k-1, i);
         if (i > k)
-            return QuintupletRec(array, n - k, i - k);
+        {
+            return QuintupletRec(array, n-k, i - k);
+        }
         else
             return array[i];
     }
